@@ -1,0 +1,13 @@
+{
+    "name": "brendanpetty/deployer",
+    "description": "A small library that automates deployment process for the app",
+    "type": "library",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Totally Web Services",
+            "email": "brendan@totally.net.au"
+        }
+    ],
+    "minimum-stability": "dev"
+}
