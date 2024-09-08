@@ -38,14 +38,15 @@ run_npm_script() {
     if [[ ! -f "$PACKAGE_JSON" ]]; then
         return
     fi
-    # Check for 'build' script in package.json
+    # Check for 'build'/'prod'/'production' script in package.json
     if grep -q '"build":' "$PACKAGE_JSON"; then
         npm run build
-    # Check for 'prod' script in package.json
     elif grep -q '"prod":' "$PACKAGE_JSON"; then
         npm run prod
+    elif grep -q '"production":' "$PACKAGE_JSON"; then
+        npm run production
     else
-        echo "No valid 'build' or 'prod' script found in package.json."
+        echo "No valid 'build' or 'prod' or 'production' script found in package.json."
     fi
 }
 
