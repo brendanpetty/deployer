@@ -65,14 +65,23 @@ do
                 exit 0
                 ;;
             "FULL UPDATE")
+                echo "git pull"
                 git pull
+                echo "composer install --no-dev"
                 composer install --no-dev
+                echo "npm install"
                 npm install
+                echo "run npm build"
                 run_npm_script
+                echo "artisan migrate"
                 php artisan migrate
+                echo "artisan config cache"
                 php artisan config:cache
+                echo "artisan route cache"
                 php artisan route:cache
+                echo "artisan view cache"
                 php artisan view:cache
+                echo "finished"
                 break
                 ;;
             "Git Status")
