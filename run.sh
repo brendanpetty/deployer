@@ -5,8 +5,6 @@ echo "*   BEGIN DEPLOY SCRIPT   *"
 echo "***************************"
 echo ""
 
-set -e
-
 # Determine the actual script location, resolving symlinks
 SCRIPT_PATH=$(readlink -f "$0")
 SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
