@@ -8,9 +8,10 @@ echo ""
 read -p "Enter SITEPATH (doc root location within ~, like public_html or sub): " SITEPATH
 read -p "Enter REPOPATH (i.e. vendor name including trailing slash): " REPOPATH
 read -p "Enter REPONAME (not including vendor name or slashes): " REPONAME
-read -sp "Enter GITHUBPAT (Personal Access Token, from https://github.com/settings/tokens with *contents read* on the specified repo): " GITHUBPAT
+read -p "Enter GITHUBPAT (Personal Access Token, from https://github.com/settings/tokens with *contents read* on the specified repo): " GITHUBPAT
 
-read -p "$SITEPATH will be deleted. Do you want to continue? (y/n): " confirm
+echo " "
+read -p "$SITEPATH and ${SITEPATH}_app will be deleted. Do you want to continue? (y/n): " confirm
 if [[ "$confirm" != "y" ]]; then
     echo "Aborting."
     exit 1
@@ -27,6 +28,13 @@ fi
 
 cd ~/${SITEPATH}_app
 git clone https://${GITHUBPAT}@‌github.com/${REPOPATH}${REPONAME}.git
+RESULT=$?
+if [ $RESULT -eq 0 ]; then
+  echo "Success"
+else
+  echo "Git Clone failed. Aborting."
+  exit 1
+fi
 
 read -p "Symlink to app directory will be created. Do you want to continue? (y/n): " confirm
 if [[ "$confirm" != "y" ]]; then
@@ -53,6 +61,13 @@ fi
 
 cd ~/${SITEPATH}_app/${REPONAME}
 composer install --no-dev
+RESULT=$?
+if [ $RESULT -eq 0 ]; then
+  echo "Success"
+else
+  echo "Composer install failed. Aborting."
+  exit 1
+fi
 
 read -p "env file will be initialised. Do you want to continue? (y/n): " confirm
 if [[ "$confirm" != "y" ]]; then
