@@ -27,7 +27,7 @@ if [[ "$confirm" != "y" ]]; then
 fi
 
 cd ~/${SITEPATH}_app
-git clone https://${GITHUBPAT}@‌github.com/${REPOPATH}${REPONAME}.git
+git clone https://${GITHUBPAT}@github.com/${REPOPATH}${REPONAME}.git
 RESULT=$?
 if [ $RESULT -eq 0 ]; then
   echo "Success"
