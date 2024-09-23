@@ -11,7 +11,6 @@ cd ~
 wget https://raw.githubusercontent.com/brendanpetty/deployer/main/install_deployer.sh
 chmod u+x install_deployer.sh
 ./install_deployer.sh
-rm install_deployer.sh
 ```
 
 Then edit .env file with (at least) credentials for Database & Email.

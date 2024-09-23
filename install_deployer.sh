@@ -101,3 +101,5 @@ echo "In future, call:  ~/deploy_${SITEPATH}.sh"
 
 echo "Now edit .env file with (at least) credentials for Database & Email..."
 sleep 2
+
+rm install_deployer.sh
