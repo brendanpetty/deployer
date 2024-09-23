@@ -28,6 +28,7 @@ fi
 
 cd ~/${SITEPATH}_app
 git clone https://${GITHUBPAT}@github.com/${REPOPATH}${REPONAME}.git
+git clone $(printf "https://%s@" "$GITHUBPAT")$(printf "github.com/%s%s.git" "$REPOPATH" "$REPONAME")
 RESULT=$?
 if [ $RESULT -eq 0 ]; then
   echo "Success"
