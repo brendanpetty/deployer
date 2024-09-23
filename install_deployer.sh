@@ -69,16 +69,25 @@ else
   exit 1
 fi
 
-read -p "env file will be initialised. Do you want to continue? (y/n): " confirm
-if [[ "$confirm" != "y" ]]; then
-    echo "Aborting."
-    exit 1
+# Check if .env.example file exists
+if [[ -f ".env.example" ]]; then
+  read -p "env file will be initialised. Do you want to continue? (y/n): " confirm
+  if [[ "$confirm" != "y" ]]; then
+      echo "Aborting."
+      exit 1
+  fi
+
+  cp .env.example .env
+  sed -i '/^APP_ENV=/c\APP_ENV=production' .env
+  sed -i '/^APP_DEBUG=/c\APP_DEBUG=false' .env
 fi
 
-cp .env.example .env
-sed -i '/^APP_ENV=/c\APP_ENV=production' .env
-sed -i '/^APP_DEBUG=/c\APP_DEBUG=false' .env
-php artisan key:generate
+# Check if artisan is installed
+if [[ -f "artisan" ]]; then
+  php artisan key:generate
+else
+  echo "No PHP Artisan installed, skipping .env key generation"
+fi
 
 read -p "Symlink to deployer update will be created. Do you want to continue? (y/n): " confirm
 if [[ "$confirm" != "y" ]]; then
@@ -92,4 +101,3 @@ echo "In future, call:  ~/deploy_${SITEPATH}.sh"
 
 echo "Now edit .env file with (at least) credentials for Database & Email..."
 sleep 2
-vi .env

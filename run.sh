@@ -75,18 +75,22 @@ do
                 composer install --no-dev
                 echo "make self executable (after update)"
                 run_make_self_executable
-                echo "npm install"
-                npm install
-                echo "run npm build"
-                run_npm_script
-                echo "artisan migrate --force"
-                php artisan migrate --force
-                echo "artisan config cache"
-                php artisan config:cache
-                echo "artisan route cache"
-                php artisan route:cache
-                echo "artisan view cache"
-                php artisan view:cache
+                if [[ -f "package.json" ]]; then
+                    echo "npm install"
+                    npm install
+                    echo "run npm build"
+                    run_npm_script
+                fi
+                if [[ -f "artisan" ]]; then
+                    echo "artisan migrate --force"
+                    php artisan migrate --force
+                    echo "artisan config cache"
+                    php artisan config:cache
+                    echo "artisan route cache"
+                    php artisan route:cache
+                    echo "artisan view cache"
+                    php artisan view:cache
+                fi
                 echo "finished"
                 break
                 ;;
