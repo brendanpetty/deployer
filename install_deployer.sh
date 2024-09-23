@@ -8,7 +8,7 @@ echo ""
 read -p "Enter SITEPATH (doc root location within ~, like public_html or sub): " SITEPATH
 read -p "Enter REPOPATH (i.e. vendor name including trailing slash): " REPOPATH
 read -p "Enter REPONAME (not including vendor name or slashes): " REPONAME
-read -p "Enter GITHUBPAT (Personal Access Token, from https://github.com/settings/tokens with *contents read* on the specified repo): " GITHUBPAT
+read -sp "Enter GITHUBPAT (Personal Access Token, from https://github.com/settings/tokens with *contents read* on the specified repo): " GITHUBPAT
 
 echo " "
 read -p "$SITEPATH and ${SITEPATH}_app will be deleted. Do you want to continue? (y/n): " confirm
@@ -18,6 +18,7 @@ if [[ "$confirm" != "y" ]]; then
 fi
 
 rm -Rf ~/${SITEPATH}
+rm -Rf ~/${SITEPATH}_app
 mkdir ~/${SITEPATH}_app
 
 read -p "Repo will be cloned. Do you want to continue? (y/n): " confirm
@@ -103,4 +104,4 @@ echo "In future, call:  ~/deploy_${SITEPATH}.sh"
 echo "Now edit .env file with (at least) credentials for Database & Email..."
 sleep 2
 
-rm install_deployer.sh
+rm ../../install_deployer.sh
