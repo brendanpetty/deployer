@@ -1,9 +1,7 @@
 #!/bin/bash
 
 echo "***************************"
-echo "*   BEGIN DEPLOY SCRIPT   *"
-echo "***************************"
-echo ""
+echo "BEGIN DEPLOY SCRIPT"
 
 # Determine the actual script location, resolving symlinks
 SCRIPT_PATH=$(readlink -f "$0")
@@ -28,6 +26,8 @@ else
     echo "SITEPATH=${SITEPATH}" > $CONFIG_FILE
     echo "REPONAME=${REPONAME}" >> $CONFIG_FILE
 fi
+
+echo "***************************"
 
 cd ~/${SITEPATH}_app/${REPONAME}
 
@@ -58,7 +58,6 @@ options=("Exit" "FULL UPDATE" "Git Status" "Git Fetch" "Git Pull" "Git Diff" "Gi
 
 while true
 do
-    echo ""
     echo ""
     echo "Select an action (1-${#options[@]}): "
     select opt in "${options[@]}"
