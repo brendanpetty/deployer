@@ -60,70 +60,70 @@ while true
 do
     echo ""
     echo "Select an action (1-${#options[@]}): "
-        case $opt in
-            "Exit")
-                echo "See ya!"
-                exit 0
-                ;;
-            "FULL UPDATE")
-                echo "git pull"
-                git pull
-                echo "composer install --no-dev"
-                composer install --no-dev
-                echo "make self executable (after update)"
-                run_make_self_executable
-                if [[ -f "package.json" ]]; then
-                    echo "npm install"
-                    npm install
-                    echo "run npm build"
-                    run_npm_script
-                fi
-                if [[ -f "artisan" ]]; then
-                    echo "artisan migrate --force"
-                    php artisan migrate --force
-                    echo "artisan config cache"
-                    php artisan config:cache
-                    echo "artisan route cache"
-                    php artisan route:cache
-                    echo "artisan view cache"
-                    php artisan view:cache
-                fi
-                echo "finished"
-                break
-                ;;
-            "Git Status")
-                git status
-                break
-                ;;
-            "Git Fetch")
-                git fetch
-                break
-                ;;
-            "Git Pull")
-                git pull
-                break
-                ;;
-            "Git Clean (force)")
-                git clean -df
-                break
-                ;;
-            "Git Reset")
-                git reset --hard
-                break
-                ;;
-            "Git Diff")
-                git diff -R
-                git diff --cached --stat
-                git diff origin/main
-                break
-                ;;
-            "Composer Install")
-                composer install --no-dev
-                echo "make self executable (after update)"
-                run_make_self_executable
-                break
-                ;;
-            "NPM Install")
+    case $opt in
+        "Exit")
+            echo "See ya!"
+            exit 0
+            ;;
+        "FULL UPDATE")
+            echo "git pull"
+            git pull
+            echo "composer install --no-dev"
+            composer install --no-dev
+            echo "make self executable (after update)"
+            run_make_self_executable
+            if [[ -f "package.json" ]]; then
+                echo "npm install"
+                npm install
+                echo "run npm build"
+                run_npm_script
+            fi
+            if [[ -f "artisan" ]]; then
+                echo "artisan migrate --force"
+                php artisan migrate --force
+                echo "artisan config cache"
+                php artisan config:cache
+                echo "artisan route cache"
+                php artisan route:cache
+                echo "artisan view cache"
+                php artisan view:cache
+            fi
+            echo "finished"
+            break
+            ;;
+        "Git Status")
+            git status
+            break
+            ;;
+        "Git Fetch")
+            git fetch
+            break
+            ;;
+        "Git Pull")
+            git pull
+            break
+            ;;
+        "Git Clean (force)")
+            git clean -df
+            break
+            ;;
+        "Git Reset")
+            git reset --hard
+            break
+            ;;
+        "Git Diff")
+            git diff -R
+            git diff --cached --stat
+            git diff origin/main
+            break
+            ;;
+        "Composer Install")
+            composer install --no-dev
+            echo "make self executable (after update)"
+            run_make_self_executable
+            break
+            ;;
+        "NPM Install")
 
     # Print options in columns (3 per row)
     cols=3
@@ -146,29 +146,29 @@ do
     opt="${options[$((input-1))]}"
     echo "> ${opt}"
 
-                npm install
-                break
-                ;;
-            "NPM Build")
-                run_npm_script
-                break
-                ;;
-            "Artisan Migrate")
-                php artisan migrate
-                break
-                ;;
-            "Artisan Cache")
-                php artisan config:cache
-                php artisan route:cache
-                php artisan view:cache
-                break
-                ;;
-            "Artisan Seed")
-                php artisan db:seed
-                break
-                ;;
-            *)
-                echo "Invalid option $opt. Please try again"
-                ;;
-        esac
+            npm install
+            break
+            ;;
+        "NPM Build")
+            run_npm_script
+            break
+            ;;
+        "Artisan Migrate")
+            php artisan migrate
+            break
+            ;;
+        "Artisan Cache")
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            break
+            ;;
+        "Artisan Seed")
+            php artisan db:seed
+            break
+            ;;
+        *)
+            echo "Invalid option $opt. Please try again"
+            ;;
+    esac
 done
