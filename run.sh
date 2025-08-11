@@ -60,6 +60,28 @@ while true
 do
     echo ""
     echo "Select an action (1-${#options[@]}): "
+
+    # Print options in columns (3 per row)
+    cols=3
+    for i in "${!options[@]}"; do
+        printf "%2d) %-22s" $((i+1)) "${options[$i]}"
+        if (( (i+1) % cols == 0 )); then
+            echo ""
+        fi
+    done
+    # Print newline if last row isn't full
+    if (( (${#options[@]} % cols) != 0 )); then
+        echo ""
+    fi
+
+    read -t 60 -p "Enter option number: " input
+    if [[ -z "$input" ]]; then
+        echo "Timeout with no input received. Exiting."
+        exit 0
+    fi
+    opt="${options[$((input-1))]}"
+    echo "> ${opt}"
+
     case $opt in
         "Exit")
             echo "See ya!"
@@ -124,28 +146,6 @@ do
             continue
             ;;
         "NPM Install")
-
-    # Print options in columns (3 per row)
-    cols=3
-    for i in "${!options[@]}"; do
-        printf "%2d) %-22s" $((i+1)) "${options[$i]}"
-        if (( (i+1) % cols == 0 )); then
-            echo ""
-        fi
-    done
-    # Print newline if last row isn't full
-    if (( (${#options[@]} % cols) != 0 )); then
-        echo ""
-    fi
-
-    read -t 60 -p "Enter option number: " input
-    if [[ -z "$input" ]]; then
-        echo "Timeout with no input received. Exiting."
-        exit 0
-    fi
-    opt="${options[$((input-1))]}"
-    echo "> ${opt}"
-
             npm install
             continue
             ;;
