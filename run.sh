@@ -89,39 +89,39 @@ do
                 php artisan view:cache
             fi
             echo "finished"
-            break
+            continue
             ;;
         "Git Status")
             git status
-            break
+            continue
             ;;
         "Git Fetch")
             git fetch
-            break
+            continue
             ;;
         "Git Pull")
             git pull
-            break
+            continue
             ;;
         "Git Clean (force)")
             git clean -df
-            break
+            continue
             ;;
         "Git Reset")
             git reset --hard
-            break
+            continue
             ;;
         "Git Diff")
             git diff -R
             git diff --cached --stat
             git diff origin/main
-            break
+            continue
             ;;
         "Composer Install")
             composer install --no-dev
             echo "make self executable (after update)"
             run_make_self_executable
-            break
+            continue
             ;;
         "NPM Install")
 
@@ -147,25 +147,25 @@ do
     echo "> ${opt}"
 
             npm install
-            break
+            continue
             ;;
         "NPM Build")
             run_npm_script
-            break
+            continue
             ;;
         "Artisan Migrate")
             php artisan migrate
-            break
+            continue
             ;;
         "Artisan Cache")
             php artisan config:cache
             php artisan route:cache
             php artisan view:cache
-            break
+            continue
             ;;
         "Artisan Seed")
             php artisan db:seed
-            break
+            continue
             ;;
         *)
             echo "Invalid option $opt. Please try again"
