@@ -13,6 +13,21 @@ SITEPATHAPP=$(echo "$SCRIPT_DIR" | awk -F'/' '{print $4}')
 # Set the config file path
 CONFIG_FILE=~/${SITEPATHAPP}/config.sh
 
+# works for global or local composer installation
+run_composer() {
+    local CMD="$*"
+
+    # Try global composer first
+    if command -v composer >/dev/null 2>&1; then
+        composer $CMD
+    elif [ -f "$HOME/bin/composer/composer.phar" ]; then
+        /usr/local/bin/php "$HOME/bin/composer/composer.phar" $CMD
+    else
+        echo "[ERROR] Composer not found (neither global nor local)." >&2
+        return 1
+    fi
+}
+
 # Source the config file if it exists
 if [ -f "$CONFIG_FILE" ]; then
     cat $CONFIG_FILE
@@ -91,7 +106,7 @@ do
             echo "git pull"
             git pull
             echo "composer install --no-dev"
-            composer install --no-dev
+            run_composer install --no-dev
             echo "make self executable (after update)"
             run_make_self_executable
             if [[ -f "package.json" ]]; then
@@ -140,7 +155,7 @@ do
             continue
             ;;
         "Composer Install")
-            composer install --no-dev
+            run_composer install --no-dev
             echo "make self executable (after update)"
             run_make_self_executable
             continue
